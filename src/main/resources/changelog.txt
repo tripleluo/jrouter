@@ -2,6 +2,30 @@
 JROUTER CHANGELOG
 ==========================
 https://jrouter.net/
+Changes in version 1.8.3 (2020-04-25)
+* 新增PathActionFactory.StringPathGenerator内部类，提供路径生成。
+* AbstractActionFactory.Properties新增afterPropertiesSet方法提供默认值的加载。
+* 完善测试用例。
+
+
+Changes in version 1.8.2 (2019-12-08)
+* 新增ActionFactoryAware接口，提供设置ActionFactory对象。
+* 完善AbstractActionFactory、PathActionFactory，提供属性对象获取ActionFactory对象。
+
+
+Changes in version 1.8.1 (2019-07-06)
+* 重新设计@InterceptorStack注解类，根据匹配路径配置Action的拦截器。
+* 废弃在@Namespace和@Action上指定特定的拦截器集合，减少设计复杂度。
+* 规范代码格式。
+* 完善测试用例。
+
+
+Changes in version 1.8.0 (2019-04-05)
+* 重构包名jrouter为net.jrouter。
+* 修正MultiParameterConverter#convert方法的参数匹配逻辑。
+* 修正DefaultProxy#invoke关于变长参数不正确的操作。
+* 完善测试用例。
+
 
 Changes in version 1.7.7 (2019-01-30)
 * 新增PathGenerator接口，抽象方法路径生成器。
@@ -217,7 +241,7 @@ Changes in version 1.5.3 (2012-02-02)
 * 更新Injector的putClassProperties(...)和putActionProperties(...)方法。
 * 基于容器启动后数据的一致性，删除DefaultActionFactory的多个set方法。
 * 新增DefaultActionFactory类的构造函数<init>(java.util.Map)，初始化属性。
-* 修改Configuraation的加载方法；修改DefaultActionFactoryBean的加载方法。
+* 修改Configuration的加载方法；修改DefaultActionFactoryBean的加载方法。
 
 
 Changes in version 1.5.2 (2012-01-02)

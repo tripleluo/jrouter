@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.jrouter</groupId>
     <artifactId>jrouter</artifactId>
     <packaging>jar</packaging>
-    <version>1.7.7</version>
+    <version>1.8.3</version>
     <name>JRouter</name>
     <inceptionYear>2010</inceptionYear>
-    <url>http://www.jrouter.net/</url>
+    <url>https://jrouter.net/</url>
 
     <dependencies>
         <!-- slf4j -->
@@ -24,7 +24,6 @@
             <version>1.2.3</version>
             <optional>true</optional>
         </dependency>
-
         <!-- springframework integration -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -44,26 +43,25 @@
             <version>1.7.25</version>
             <optional>true</optional>
         </dependency>
-
         <!-- javassist -->
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.23.1-GA</version>
+            <version>3.25.0-GA</version>
             <optional>true</optional>
         </dependency>
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.4</version>
+            <version>1.18.8</version>
             <scope>provided</scope>
         </dependency>
         <!-- junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
         <!-- spring test -->
@@ -86,7 +84,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
@@ -106,7 +104,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.1.2</version>
                 <configuration>
                     <excludes>
                         <exclude>changelog.txt</exclude>
@@ -117,7 +115,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.3</version>
+                <version>0.8.4</version>
                 <executions>
                     <!--
                     <execution>
@@ -142,6 +140,39 @@
     </build>
     <profiles>
         <profile>
+            <id>checkstyle</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- checkstyle -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>3.1.1</version>
+                        <configuration>
+                            <configLocation>${checkstyle.config.file}</configLocation>
+                            <failOnViolation>false</failOnViolation>
+                            <failsOnError>false</failsOnError>
+                            <includeTestSourceDirectory>false</includeTestSourceDirectory>
+                            <logViolationsToConsole>true</logViolationsToConsole>
+                            <violationSeverity>warning</violationSeverity>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>checkstyle</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>pmd</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -152,17 +183,17 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-pmd-plugin</artifactId>
-                        <version>3.11.0</version>
+                        <version>3.13.0</version>
                         <dependencies>
                             <dependency>
                                 <groupId>net.sourceforge.pmd</groupId>
                                 <artifactId>pmd-core</artifactId>
-                                <version>6.11.0</version>
+                                <version>6.23.0</version>
                             </dependency>
                             <dependency>
                                 <groupId>net.sourceforge.pmd</groupId>
                                 <artifactId>pmd-java</artifactId>
-                                <version>6.11.0</version>
+                                <version>6.23.0</version>
                             </dependency>
                         </dependencies>
                         <executions>
@@ -200,7 +231,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -221,7 +252,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>3.1.1</version>
                         <executions>
                             <execution>
                                 <phase>package</phase>
@@ -248,6 +279,12 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!-- deploy -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.8.2</version>
+                    </plugin>
                 </plugins>
             </build>
             <distributionManagement>
@@ -261,7 +298,8 @@
     </profiles>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.3.22.RELEASE</spring.version>
+        <spring.version>4.3.25.RELEASE</spring.version>
+        <checkstyle.config.file></checkstyle.config.file>
         <pmd.rule.file></pmd.rule.file>
     </properties>
     <licenses>
@@ -272,13 +310,13 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git@github.com:innjj/jrouter.git</connection>
-        <developerConnection>scm:git:git@github.com:innjj/jrouter.git</developerConnection>
-        <url>https://github.com/innjj/jrouter</url>
+        <connection>scm:git:git@github.com:tripluo/jrouter.git</connection>
+        <developerConnection>scm:git:git@github.com:tripluo/jrouter.git</developerConnection>
+        <url>https://github.com/tripluo/jrouter</url>
     </scm>
     <developers>
         <developer>
-            <id>innjj</id>
+            <id>tripluo</id>
             <name>Luo Li</name>
             <email>sunjumper@163.com</email>
         </developer>
